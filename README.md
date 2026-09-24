@@ -1,4 +1,4 @@
-# juniorteacher
+# Teacher
 
 O **Teacher** é um amigo que te ensina inglês conversando, feito com Claude.
 
