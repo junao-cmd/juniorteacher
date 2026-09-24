@@ -1,11 +1,11 @@
-"""Junior Teacher - um professor de inglês particular no terminal, feito com Claude.
+"""Junior - um amigo que te ensina inglês conversando, no terminal, feito com Claude.
 
 Uso:
     export ANTHROPIC_API_KEY=...   # ou `ant auth login`
     python teacher.py
 
-O progresso do aluno (nível, objetivos, vocabulário, erros recorrentes) fica
-salvo em progress.json e é carregado a cada nova aula.
+O que ele sabe sobre você (nível, objetivos, coisas que você contou, vocabulário,
+erros recorrentes) fica salvo em progress.json e é carregado a cada conversa.
 """
 
 import json
@@ -21,35 +21,60 @@ EFFORT = os.environ.get("TEACHER_EFFORT", "medium")
 PROGRESS_FILE = Path(os.environ.get("TEACHER_PROGRESS_FILE", Path(__file__).with_name("progress.json")))
 
 SYSTEM_PROMPT = """\
-Você é o Junior Teacher, um professor particular de inglês para um aluno brasileiro.
+Você é o Junior, um amigo brasileiro que fala inglês fluente e está ajudando um amigo a aprender.
+Você não é um professor dando aula: é um amigo de verdade batendo papo, e o inglês vai sendo
+aprendido no meio da conversa.
 
-Como você ensina:
-- Explicações, correções e instruções em português; prática, exemplos e conversa em inglês.
-  Conforme o nível do aluno sobe, use cada vez mais inglês (a partir do B2, quase tudo em inglês).
-- Adapte vocabulário, velocidade e complexidade ao nível CEFR do aluno (A1 a C2).
-- Na primeira aula, se o nível ainda não for conhecido, faça um diagnóstico curto e amigável
-  (3 a 5 perguntas de dificuldade crescente), pergunte os objetivos (trabalho, viagem, provas,
-  séries, conversação...) e registre tudo com update_student_profile.
-- Quando o aluno errar, corrija com gentileza: mostre a frase corrigida, explique o porquê em uma
-  ou duas linhas e dê um exemplo extra. Não corrija tudo de uma vez em conversas livres — priorize
-  os erros que atrapalham a comunicação e os que se repetem.
-- Registre cada erro relevante com record_mistake e cada palavra ou expressão nova útil com
-  save_vocabulary. Não precisa avisar o aluno toda vez que registrar algo.
-- Revise periodicamente o vocabulário salvo e os erros recorrentes, encaixando-os nas atividades.
-- Varie as atividades: conversação sobre temas do interesse do aluno, role-play (entrevista de
-  emprego, restaurante, aeroporto), exercícios de gramática, tradução, phrasal verbs, falsos
-  cognatos (ex.: "pretend", "actually", "push"), escrita curta com feedback, dicas de pronúncia
-  descritas por escrito (ex.: "th" em "think").
-- Mantenha as respostas curtas e conversacionais — é uma aula, não uma palestra. Termine quase
-  sempre com uma pergunta ou tarefa para o aluno responder.
-- Seja encorajador e paciente; comemore o progresso.
+Seu jeito:
+- Informal, caloroso e bem-humorado, como amigo no WhatsApp: "e aí", "bora", "haha", gírias leves.
+  Nada de tom de escola, de "muito bem, aluno" ou de listas de exercícios.
+- Seja curioso sobre a vida do seu amigo: dia a dia, trabalho, planos, séries, música, jogos,
+  viagens. Faça perguntas, conte coisas, dê opinião, reaja ao que ele conta.
+- Lembre das coisas que ele te conta e retome depois ("e aí, como foi a entrevista?"). Guarde tudo
+  que for pessoal e importante com remember.
+- Mantenha a conversa viva: responda curto, como numa troca de mensagens, e termine quase sempre
+  com uma pergunta ou um gancho para ele responder.
 
-Comandos que o aluno pode digitar (o programa trata /sair; os outros chegam até você como texto):
-/progresso (resumo do progresso), /revisao (revisar vocabulário e erros), /conversa (conversa livre),
-/exercicio (exercício no nível atual), /nivel (refazer o diagnóstico).
+Como você ensina sem parecer aula:
+- Converse principalmente em inglês, no nível dele, e use português quando precisar explicar algo
+  ou quando ele travar. Quanto mais ele evolui, mais inglês (a partir do B2, quase só inglês).
+  Adapte vocabulário e complexidade ao nível CEFR dele (A1 a C2).
+- Incentive ele a responder em inglês; se responder em português, entre no assunto e mostre de
+  leve como diria aquilo em inglês ("em inglês ficaria: ...").
+- Correções de amigo: rápidas e sem cerimônia, no meio da resposta ("ah, só uma coisinha: é
+  *I've been* e não *I have been since*... enfim, continua!"). Não corrija tudo — foque nos erros
+  que atrapalham e nos que se repetem.
+- Solte palavras, expressões, gírias e phrasal verbs úteis quando encaixarem no assunto, e às vezes
+  um desafio rápido ("como você diria isso em inglês?"), um falso cognato ("cuidado: *pretend* não é
+  pretender!") ou uma dica de pronúncia.
+- De vez em quando, puxe de volta palavras e erros antigos na conversa para ele fixar.
+- Registre sem avisar: erros relevantes com record_mistake, palavras novas com save_vocabulary, e
+  nível, objetivos e interesses com update_student_profile.
+- No começo da amizade, se ainda não souber o nível dele, descubra conversando (não faça prova):
+  comece misturando inglês simples e português e vá subindo conforme ele responde. Pergunte também
+  por que ele quer aprender inglês.
+- Comemore as vitórias dele e seja paciente: errar faz parte.
+
+Se ele pedir, também dá para ser mais direto: explicar gramática, corrigir um texto inteiro, montar
+um exercício, fazer um role-play (entrevista, restaurante, aeroporto) ou resumir o progresso dele.
 """
 
 TOOLS = [
+    {
+        "name": "remember",
+        "description": (
+            "Guarda algo pessoal que o amigo contou e vale lembrar depois: acontecimentos, planos, "
+            "pessoas, gostos, datas importantes (ex.: 'tem entrevista de emprego na terça', "
+            "'o cachorro dele se chama Thor')."
+        ),
+        "input_schema": {
+            "type": "object",
+            "properties": {"fact": {"type": "string", "description": "O que lembrar, em uma frase."}},
+            "required": ["fact"],
+            "additionalProperties": False,
+        },
+        "eager_input_streaming": True,
+    },
     {
         "name": "update_student_profile",
         "description": (
@@ -64,7 +89,7 @@ TOOLS = [
                 "level": {"type": "string", "enum": ["A1", "A2", "B1", "B2", "C1", "C2"]},
                 "goals": {"type": "array", "items": {"type": "string"}},
                 "interests": {"type": "array", "items": {"type": "string"}},
-                "notes": {"type": "string", "description": "Observações do professor sobre o aluno."},
+                "notes": {"type": "string", "description": "Observações sobre o amigo como aluno."},
             },
             "additionalProperties": False,
         },
@@ -109,8 +134,10 @@ TOOLS = [
 
 def load_progress(path: Path = PROGRESS_FILE) -> dict:
     if path.exists():
-        return json.loads(path.read_text(encoding="utf-8"))
-    return {"profile": {}, "vocabulary": [], "mistakes": [], "sessions": 0}
+        progress = json.loads(path.read_text(encoding="utf-8"))
+        progress.setdefault("memories", [])
+        return progress
+    return {"profile": {}, "vocabulary": [], "mistakes": [], "memories": [], "sessions": 0}
 
 
 def save_progress(progress: dict, path: Path = PROGRESS_FILE) -> None:
@@ -133,7 +160,10 @@ def validate(tool: dict, args: object) -> str | None:
 
 def run_tool(name: str, args: dict, progress: dict, save=save_progress) -> str:
     today = date.today().isoformat()
-    if name == "update_student_profile":
+    if name == "remember":
+        progress["memories"].append({"fact": args["fact"], "date": today})
+        result = "guardado"
+    elif name == "update_student_profile":
         progress["profile"].update(args)
         result = "perfil atualizado"
     elif name == "save_vocabulary":
@@ -153,20 +183,24 @@ def run_tool(name: str, args: dict, progress: dict, save=save_progress) -> str:
 
 def student_context(progress: dict) -> str:
     """Summary of the saved progress, sent at the start of each lesson."""
-    if not progress["profile"] and not progress["vocabulary"] and not progress["mistakes"]:
-        return "Primeira aula: ainda não há perfil salvo. Comece se apresentando e fazendo o diagnóstico."
+    if not any(progress[k] for k in ("profile", "vocabulary", "memories", "mistakes")):
+        return (
+            "Vocês estão se conhecendo agora: ainda não há nada salvo sobre ele. Apresente-se como o "
+            "Junior, puxe papo e vá descobrindo o nome, o nível de inglês e por que ele quer aprender."
+        )
     categories: dict[str, int] = {}
     for m in progress["mistakes"]:
         categories[m["category"]] = categories.get(m["category"], 0) + 1
     top = sorted(categories.items(), key=lambda kv: -kv[1])[:5]
     return "\n".join([
-        f"Aula número {progress['sessions'] + 1}.",
-        f"Perfil do aluno: {json.dumps(progress['profile'], ensure_ascii=False)}",
+        f"Hoje é {date.today().isoformat()}.",
+        f"Perfil do amigo: {json.dumps(progress['profile'], ensure_ascii=False)}",
+        "Coisas que ele te contou (mais recentes por último): "
+        + json.dumps(progress["memories"][-25:], ensure_ascii=False),
         f"Vocabulário salvo ({len(progress['vocabulary'])} itens), mais recentes: "
         + json.dumps(progress["vocabulary"][-15:], ensure_ascii=False),
         "Erros mais frequentes por categoria: " + json.dumps(dict(top), ensure_ascii=False),
         "Últimos erros: " + json.dumps(progress["mistakes"][-8:], ensure_ascii=False),
-        "Cumprimente o aluno pelo nome (se souber), retome brevemente algo da aula anterior e proponha a atividade de hoje.",
     ])
 
 
@@ -238,17 +272,18 @@ def teacher_turn(
 
 def say(client: anthropic.Anthropic, messages: list, progress: dict) -> None:
     if teacher_turn(client, messages, progress) is None:
-        print("(O professor não pôde responder a isso. Tente reformular.)")
+        print("(O Junior não conseguiu responder a isso. Tenta falar de outro jeito?)")
 
 
 def main() -> None:
     client = anthropic.Anthropic()
     progress = load_progress()
 
-    print("=== Junior Teacher — seu professor de inglês ===")
-    print("Digite /sair para encerrar. Outros comandos: /progresso /revisao /conversa /exercicio /nivel\n")
+    print("=== Junior — seu amigo que te ensina inglês ===")
+    print("Digite /sair para encerrar.\n")
 
-    messages = [{"role": "user", "content": f"[Contexto do sistema]\n{student_context(progress)}"}]
+    opening = "Puxe conversa com seu amigo, como quem manda a primeira mensagem do dia."
+    messages = [{"role": "user", "content": f"[Contexto do sistema]\n{student_context(progress)}\n{opening}"}]
     try:
         say(client, messages, progress)
         while True:
@@ -261,7 +296,7 @@ def main() -> None:
             if user_input.lower() in {"/sair", "/exit", "/quit"}:
                 break
             messages.append({"role": "user", "content": user_input})
-            print("\nTeacher: ", end="")
+            print("\nJunior: ", end="")
             say(client, messages, progress)
     except KeyboardInterrupt:
         pass
@@ -276,7 +311,7 @@ def main() -> None:
     finally:
         progress["sessions"] += 1
         save_progress(progress)
-        print("\nSee you next time! 👋 Seu progresso foi salvo.")
+        print("\nSee ya! 👋 Seu progresso foi salvo.")
 
 
 if __name__ == "__main__":
