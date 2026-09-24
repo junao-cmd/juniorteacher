@@ -1,0 +1,715 @@
+{
+ "_aviso": "DADOS FICTÍCIOS de exemplo para testar o agente sem acesso à Graph API.",
+ "source": "sample",
+ "fetched_at": "2026-09-20T21:00:00+00:00",
+ "profile": {
+  "username": "furiagg_exemplo",
+  "name": "FURIA (exemplo)",
+  "biography": "Perfil fictício para testes",
+  "followers_count": 3000000,
+  "follows_count": 500,
+  "media_count": 36
+ },
+ "posts": [
+  {
+   "id": "sample_000",
+   "caption": "Clutch absurdo no último round 🐆🔥 quem aí gritou junto? #DIADEFURIA #CS2 #FURIACS",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO000/",
+   "timestamp": "2026-09-21T00:00:00+0000",
+   "like_count": 31706,
+   "comments_count": 362,
+   "insights": {
+    "reach": 568293,
+    "views": 1112504,
+    "saved": 2196,
+    "shares": 872,
+    "total_interactions": 35136
+   },
+   "comments": [
+    {
+     "text": "VAMO FURIA 🐆🐆",
+     "like_count": 259
+    },
+    {
+     "text": "posta mais bastidor por favor",
+     "like_count": 109
+    },
+    {
+     "text": "quando volta a collab??",
+     "like_count": 19
+    },
+    {
+     "text": "que clutch insano",
+     "like_count": 44
+    },
+    {
+     "text": "faz vídeo com o time jogando outro jogo kkk",
+     "like_count": 222
+    }
+   ]
+  },
+  {
+   "id": "sample_001",
+   "caption": "Bastidores do bootcamp: um dia na gaming house 🏠 #DIADEFURIA #bastidores",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO001/",
+   "timestamp": "2026-09-18T11:00:00+0000",
+   "like_count": 10314,
+   "comments_count": 234,
+   "insights": {
+    "reach": 236405,
+    "views": 352293,
+    "saved": 717,
+    "shares": 308,
+    "total_interactions": 11573
+   },
+   "comments": [
+    {
+     "text": "VAMO FURIA 🐆🐆",
+     "like_count": 298
+    },
+    {
+     "text": "posta mais bastidor por favor",
+     "like_count": 31
+    },
+    {
+     "text": "quando volta a collab??",
+     "like_count": 295
+    },
+    {
+     "text": "que clutch insano",
+     "like_count": 299
+    },
+    {
+     "text": "faz vídeo com o time jogando outro jogo kkk",
+     "like_count": 203
+    }
+   ]
+  },
+  {
+   "id": "sample_002",
+   "caption": "Os números da campanha no campeonato 📊 arrasta pro lado ➡️ #DIADEFURIA #CS2",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO002/",
+   "timestamp": "2026-09-16T05:00:00+0000",
+   "like_count": 11254,
+   "comments_count": 402,
+   "insights": {
+    "reach": 413588,
+    "views": 559638,
+    "saved": 420,
+    "shares": 230,
+    "total_interactions": 12306
+   },
+   "comments": [
+    {
+     "text": "VAMO FURIA 🐆🐆",
+     "like_count": 157
+    },
+    {
+     "text": "posta mais bastidor por favor",
+     "like_count": 286
+    },
+    {
+     "text": "quando volta a collab??",
+     "like_count": 92
+    },
+    {
+     "text": "que clutch insano",
+     "like_count": 52
+    },
+    {
+     "text": "faz vídeo com o time jogando outro jogo kkk",
+     "like_count": 297
+    }
+   ]
+  },
+  {
+   "id": "sample_003",
+   "caption": "Matchday! Hoje tem FURIA em quadra. Bora? 🖤🤍 #DIADEFURIA",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO003/",
+   "timestamp": "2026-09-13T08:00:00+0000",
+   "like_count": 8852,
+   "comments_count": 233,
+   "insights": {
+    "reach": 322506,
+    "views": 473356,
+    "saved": 210,
+    "shares": 109,
+    "total_interactions": 9404
+   },
+   "comments": [
+    {
+     "text": "VAMO FURIA 🐆🐆",
+     "like_count": 272
+    },
+    {
+     "text": "posta mais bastidor por favor",
+     "like_count": 218
+    },
+    {
+     "text": "quando volta a collab??",
+     "like_count": 160
+    },
+    {
+     "text": "que clutch insano",
+     "like_count": 238
+    },
+    {
+     "text": "faz vídeo com o time jogando outro jogo kkk",
+     "like_count": 299
+    }
+   ]
+  },
+  {
+   "id": "sample_004",
+   "caption": "Desafio: acertar o mapa só pelo som 🎧 #DIADEFURIA #valorant #FURIAVAL",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO004/",
+   "timestamp": "2026-09-10T22:00:00+0000",
+   "like_count": 17312,
+   "comments_count": 266,
+   "insights": {
+    "reach": 346678,
+    "views": 551330,
+    "saved": 1156,
+    "shares": 459,
+    "total_interactions": 19193
+   }
+  },
+  {
+   "id": "sample_005",
+   "caption": "Nova collab chegando na loja. Qual peça é a sua? 🛒 #FURIAstore #DIADEFURIA",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO005/",
+   "timestamp": "2026-09-08T10:00:00+0000",
+   "like_count": 17369,
+   "comments_count": 323,
+   "insights": {
+    "reach": 386287,
+    "views": 673514,
+    "saved": 1368,
+    "shares": 332,
+    "total_interactions": 19392
+   }
+  },
+  {
+   "id": "sample_006",
+   "caption": "GG. Não foi dessa vez, mas a gente volta mais forte. Obrigado, torcida. #DIADEFURIA",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO006/",
+   "timestamp": "2026-09-05T17:00:00+0000",
+   "like_count": 9370,
+   "comments_count": 212,
+   "insights": {
+    "reach": 242355,
+    "views": 466654,
+    "saved": 728,
+    "shares": 122,
+    "total_interactions": 10432
+   }
+  },
+  {
+   "id": "sample_007",
+   "caption": "Reagindo às jogadas da semana com o time 😂 #DIADEFURIA #CS2",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO007/",
+   "timestamp": "2026-09-03T05:00:00+0000",
+   "like_count": 28425,
+   "comments_count": 877,
+   "insights": {
+    "reach": 540930,
+    "views": 969923,
+    "saved": 1582,
+    "shares": 1887,
+    "total_interactions": 32771
+   }
+  },
+  {
+   "id": "sample_008",
+   "caption": "Conheça a line de Rocket League 🚗⚽ #DIADEFURIA #RocketLeague",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO008/",
+   "timestamp": "2026-09-01T04:00:00+0000",
+   "like_count": 15524,
+   "comments_count": 464,
+   "insights": {
+    "reach": 405063,
+    "views": 826841,
+    "saved": 366,
+    "shares": 768,
+    "total_interactions": 17122
+   }
+  },
+  {
+   "id": "sample_009",
+   "caption": "POV: você é o coach no intervalo 🗣️ #DIADEFURIA #bastidores",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO009/",
+   "timestamp": "2026-08-29T07:00:00+0000",
+   "like_count": 26754,
+   "comments_count": 577,
+   "insights": {
+    "reach": 520687,
+    "views": 937342,
+    "saved": 1608,
+    "shares": 583,
+    "total_interactions": 29522
+   }
+  },
+  {
+   "id": "sample_010",
+   "caption": "Anúncio oficial: bem-vindo à Pantera! 🐆 #DIADEFURIA #FURIACS",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO010/",
+   "timestamp": "2026-08-27T03:00:00+0000",
+   "like_count": 9408,
+   "comments_count": 155,
+   "insights": {
+    "reach": 314948,
+    "views": 540849,
+    "saved": 350,
+    "shares": 371,
+    "total_interactions": 10284
+   }
+  },
+  {
+   "id": "sample_011",
+   "caption": "Tutorial rápido de smoke que o time usa 💨 #CS2 #dicas #DIADEFURIA",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO011/",
+   "timestamp": "2026-08-24T10:00:00+0000",
+   "like_count": 13938,
+   "comments_count": 369,
+   "insights": {
+    "reach": 240459,
+    "views": 558629,
+    "saved": 1017,
+    "shares": 1192,
+    "total_interactions": 16516
+   }
+  },
+  {
+   "id": "sample_012",
+   "caption": "Clutch absurdo no último round 🐆🔥 quem aí gritou junto? #DIADEFURIA #CS2 #FURIACS",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO012/",
+   "timestamp": "2026-08-22T01:00:00+0000",
+   "like_count": 37903,
+   "comments_count": 1155,
+   "insights": {
+    "reach": 477017,
+    "views": 623881,
+    "saved": 1623,
+    "shares": 1457,
+    "total_interactions": 42138
+   }
+  },
+  {
+   "id": "sample_013",
+   "caption": "Bastidores do bootcamp: um dia na gaming house 🏠 #DIADEFURIA #bastidores",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO013/",
+   "timestamp": "2026-08-19T15:00:00+0000",
+   "like_count": 14685,
+   "comments_count": 360,
+   "insights": {
+    "reach": 297679,
+    "views": 358798,
+    "saved": 812,
+    "shares": 602,
+    "total_interactions": 16459
+   }
+  },
+  {
+   "id": "sample_014",
+   "caption": "Os números da campanha no campeonato 📊 arrasta pro lado ➡️ #DIADEFURIA #CS2",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO014/",
+   "timestamp": "2026-08-16T23:00:00+0000",
+   "like_count": 12319,
+   "comments_count": 240,
+   "insights": {
+    "reach": 294339,
+    "views": 716801,
+    "saved": 339,
+    "shares": 710,
+    "total_interactions": 13608
+   }
+  },
+  {
+   "id": "sample_015",
+   "caption": "Matchday! Hoje tem FURIA em quadra. Bora? 🖤🤍 #DIADEFURIA",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO015/",
+   "timestamp": "2026-08-14T07:00:00+0000",
+   "like_count": 7010,
+   "comments_count": 259,
+   "insights": {
+    "reach": 332574,
+    "views": 744046,
+    "saved": 468,
+    "shares": 315,
+    "total_interactions": 8052
+   }
+  },
+  {
+   "id": "sample_016",
+   "caption": "Desafio: acertar o mapa só pelo som 🎧 #DIADEFURIA #valorant #FURIAVAL",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO016/",
+   "timestamp": "2026-08-11T23:00:00+0000",
+   "like_count": 20101,
+   "comments_count": 491,
+   "insights": {
+    "reach": 360470,
+    "views": 893990,
+    "saved": 884,
+    "shares": 708,
+    "total_interactions": 22184
+   }
+  },
+  {
+   "id": "sample_017",
+   "caption": "Nova collab chegando na loja. Qual peça é a sua? 🛒 #FURIAstore #DIADEFURIA",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO017/",
+   "timestamp": "2026-08-09T10:00:00+0000",
+   "like_count": 6752,
+   "comments_count": 78,
+   "insights": {
+    "reach": 193821,
+    "views": 258150,
+    "saved": 135,
+    "shares": 140,
+    "total_interactions": 7105
+   }
+  },
+  {
+   "id": "sample_018",
+   "caption": "GG. Não foi dessa vez, mas a gente volta mais forte. Obrigado, torcida. #DIADEFURIA",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO018/",
+   "timestamp": "2026-08-07T00:00:00+0000",
+   "like_count": 6758,
+   "comments_count": 109,
+   "insights": {
+    "reach": 315709,
+    "views": 770995,
+    "saved": 287,
+    "shares": 239,
+    "total_interactions": 7393
+   }
+  },
+  {
+   "id": "sample_019",
+   "caption": "Reagindo às jogadas da semana com o time 😂 #DIADEFURIA #CS2",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO019/",
+   "timestamp": "2026-08-04T08:00:00+0000",
+   "like_count": 15614,
+   "comments_count": 553,
+   "insights": {
+    "reach": 347653,
+    "views": 635852,
+    "saved": 1242,
+    "shares": 894,
+    "total_interactions": 18303
+   }
+  },
+  {
+   "id": "sample_020",
+   "caption": "Conheça a line de Rocket League 🚗⚽ #DIADEFURIA #RocketLeague",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO020/",
+   "timestamp": "2026-08-02T04:00:00+0000",
+   "like_count": 8593,
+   "comments_count": 276,
+   "insights": {
+    "reach": 188911,
+    "views": 353496,
+    "saved": 418,
+    "shares": 420,
+    "total_interactions": 9707
+   }
+  },
+  {
+   "id": "sample_021",
+   "caption": "POV: você é o coach no intervalo 🗣️ #DIADEFURIA #bastidores",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO021/",
+   "timestamp": "2026-07-30T14:00:00+0000",
+   "like_count": 34811,
+   "comments_count": 501,
+   "insights": {
+    "reach": 569472,
+    "views": 1074333,
+    "saved": 1830,
+    "shares": 771,
+    "total_interactions": 37913
+   }
+  },
+  {
+   "id": "sample_022",
+   "caption": "Anúncio oficial: bem-vindo à Pantera! 🐆 #DIADEFURIA #FURIACS",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO022/",
+   "timestamp": "2026-07-27T19:00:00+0000",
+   "like_count": 12996,
+   "comments_count": 231,
+   "insights": {
+    "reach": 383097,
+    "views": 844161,
+    "saved": 545,
+    "shares": 216,
+    "total_interactions": 13988
+   }
+  },
+  {
+   "id": "sample_023",
+   "caption": "Tutorial rápido de smoke que o time usa 💨 #CS2 #dicas #DIADEFURIA",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO023/",
+   "timestamp": "2026-07-25T09:00:00+0000",
+   "like_count": 24927,
+   "comments_count": 725,
+   "insights": {
+    "reach": 414712,
+    "views": 906485,
+    "saved": 1415,
+    "shares": 2070,
+    "total_interactions": 29137
+   }
+  },
+  {
+   "id": "sample_024",
+   "caption": "Clutch absurdo no último round 🐆🔥 quem aí gritou junto? #DIADEFURIA #CS2 #FURIACS",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO024/",
+   "timestamp": "2026-07-23T02:00:00+0000",
+   "like_count": 37435,
+   "comments_count": 1205,
+   "insights": {
+    "reach": 514697,
+    "views": 855545,
+    "saved": 1257,
+    "shares": 2298,
+    "total_interactions": 42195
+   }
+  },
+  {
+   "id": "sample_025",
+   "caption": "Bastidores do bootcamp: um dia na gaming house 🏠 #DIADEFURIA #bastidores",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO025/",
+   "timestamp": "2026-07-20T17:00:00+0000",
+   "like_count": 41822,
+   "comments_count": 1010,
+   "insights": {
+    "reach": 584070,
+    "views": 962293,
+    "saved": 1322,
+    "shares": 2861,
+    "total_interactions": 47015
+   }
+  },
+  {
+   "id": "sample_026",
+   "caption": "Os números da campanha no campeonato 📊 arrasta pro lado ➡️ #DIADEFURIA #CS2",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO026/",
+   "timestamp": "2026-07-17T17:00:00+0000",
+   "like_count": 20830,
+   "comments_count": 805,
+   "insights": {
+    "reach": 402995,
+    "views": 602437,
+    "saved": 872,
+    "shares": 509,
+    "total_interactions": 23016
+   }
+  },
+  {
+   "id": "sample_027",
+   "caption": "Matchday! Hoje tem FURIA em quadra. Bora? 🖤🤍 #DIADEFURIA",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO027/",
+   "timestamp": "2026-07-15T14:00:00+0000",
+   "like_count": 7151,
+   "comments_count": 282,
+   "insights": {
+    "reach": 241189,
+    "views": 574502,
+    "saved": 404,
+    "shares": 72,
+    "total_interactions": 7909
+   }
+  },
+  {
+   "id": "sample_028",
+   "caption": "Desafio: acertar o mapa só pelo som 🎧 #DIADEFURIA #valorant #FURIAVAL",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO028/",
+   "timestamp": "2026-07-13T00:00:00+0000",
+   "like_count": 22227,
+   "comments_count": 662,
+   "insights": {
+    "reach": 512265,
+    "views": 1114269,
+    "saved": 1657,
+    "shares": 1835,
+    "total_interactions": 26381
+   }
+  },
+  {
+   "id": "sample_029",
+   "caption": "Nova collab chegando na loja. Qual peça é a sua? 🛒 #FURIAstore #DIADEFURIA",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO029/",
+   "timestamp": "2026-07-10T10:00:00+0000",
+   "like_count": 14541,
+   "comments_count": 422,
+   "insights": {
+    "reach": 390032,
+    "views": 834033,
+    "saved": 366,
+    "shares": 904,
+    "total_interactions": 16233
+   }
+  },
+  {
+   "id": "sample_030",
+   "caption": "GG. Não foi dessa vez, mas a gente volta mais forte. Obrigado, torcida. #DIADEFURIA",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO030/",
+   "timestamp": "2026-07-07T22:00:00+0000",
+   "like_count": 10060,
+   "comments_count": 319,
+   "insights": {
+    "reach": 258374,
+    "views": 360818,
+    "saved": 303,
+    "shares": 151,
+    "total_interactions": 10833
+   }
+  },
+  {
+   "id": "sample_031",
+   "caption": "Reagindo às jogadas da semana com o time 😂 #DIADEFURIA #CS2",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO031/",
+   "timestamp": "2026-07-05T10:00:00+0000",
+   "like_count": 23604,
+   "comments_count": 821,
+   "insights": {
+    "reach": 514857,
+    "views": 852361,
+    "saved": 1860,
+    "shares": 1713,
+    "total_interactions": 27998
+   }
+  },
+  {
+   "id": "sample_032",
+   "caption": "Conheça a line de Rocket League 🚗⚽ #DIADEFURIA #RocketLeague",
+   "media_type": "CAROUSEL_ALBUM",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO032/",
+   "timestamp": "2026-07-02T21:00:00+0000",
+   "like_count": 7914,
+   "comments_count": 268,
+   "insights": {
+    "reach": 298037,
+    "views": 648035,
+    "saved": 503,
+    "shares": 145,
+    "total_interactions": 8830
+   }
+  },
+  {
+   "id": "sample_033",
+   "caption": "POV: você é o coach no intervalo 🗣️ #DIADEFURIA #bastidores",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO033/",
+   "timestamp": "2026-06-30T15:00:00+0000",
+   "like_count": 27999,
+   "comments_count": 973,
+   "insights": {
+    "reach": 373979,
+    "views": 591207,
+    "saved": 914,
+    "shares": 1124,
+    "total_interactions": 31010
+   }
+  },
+  {
+   "id": "sample_034",
+   "caption": "Anúncio oficial: bem-vindo à Pantera! 🐆 #DIADEFURIA #FURIACS",
+   "media_type": "IMAGE",
+   "media_product_type": "FEED",
+   "permalink": "https://www.instagram.com/p/EXEMPLO034/",
+   "timestamp": "2026-06-28T02:00:00+0000",
+   "like_count": 9446,
+   "comments_count": 248,
+   "insights": {
+    "reach": 356193,
+    "views": 770053,
+    "saved": 661,
+    "shares": 117,
+    "total_interactions": 10472
+   }
+  },
+  {
+   "id": "sample_035",
+   "caption": "Tutorial rápido de smoke que o time usa 💨 #CS2 #dicas #DIADEFURIA",
+   "media_type": "VIDEO",
+   "media_product_type": "REELS",
+   "permalink": "https://www.instagram.com/p/EXEMPLO035/",
+   "timestamp": "2026-06-25T10:00:00+0000",
+   "like_count": 33426,
+   "comments_count": 852,
+   "insights": {
+    "reach": 460415,
+    "views": 630764,
+    "saved": 2327,
+    "shares": 3016,
+    "total_interactions": 39621
+   }
+  }
+ ]
+}
