@@ -69,8 +69,14 @@ conversa sozinho). Opções:
 
 - **Para testar no seu computador:** `cloudflared tunnel --url http://localhost:8000` ou
   `ngrok http 8000` dão uma URL pública temporária.
-- **Para deixar rodando:** um serviço como Render, Railway, Fly.io ou uma VPS, com disco persistente
-  para a pasta `data/` e o comando de início `python whatsapp_bot.py`.
+- **Para deixar rodando (recomendado): Render.** O projeto já traz um `render.yaml`. Em
+  <https://dashboard.render.com> clique em **New → Blueprint**, escolha este repositório e a branch,
+  preencha as chaves que ele pedir e confirme. Ele cria o servidor com um disco para guardar a
+  memória do Junior. Use o plano pago mais barato: no gratuito o servidor dorme quando fica parado,
+  e aí o Junior não consegue puxar conversa. O endereço público aparece no topo da página do serviço
+  (algo como `https://junior-english.onrender.com`).
+- Também funciona em Railway, Fly.io ou uma VPS, com disco persistente para a pasta `data/` e o
+  comando de início `python whatsapp_bot.py`.
 
 No painel da Meta, em **WhatsApp → Configuration → Webhook**, coloque a URL
 `https://SEU-ENDERECO/webhook` e o mesmo `WHATSAPP_VERIFY_TOKEN`, clique em **Verify and save** e

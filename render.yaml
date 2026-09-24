@@ -1,0 +1,32 @@
+# Render Blueprint: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: junior-english
+    runtime: python
+    plan: starter # the free plan sleeps when idle, and Junior must stay awake to message you
+    buildCommand: pip install -r requirements.txt
+    startCommand: python whatsapp_bot.py
+    healthCheckPath: /
+    disk:
+      name: junior-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: DATA_DIR
+        value: /var/data
+      - key: TIMEZONE
+        value: America/Sao_Paulo
+      - key: CHECKIN_TIMES
+        value: "09:00,12:30,19:30"
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: WHATSAPP_TOKEN
+        sync: false
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        sync: false
+      - key: WHATSAPP_VERIFY_TOKEN
+        sync: false
+      - key: WHATSAPP_APP_SECRET
+        sync: false
+      - key: STUDENT_PHONE
+        sync: false
