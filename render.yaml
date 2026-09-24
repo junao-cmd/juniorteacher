@@ -1,14 +1,14 @@
 # Render Blueprint: https://render.com/docs/blueprint-spec
 services:
   - type: web
-    name: junior-english
+    name: teacher-english
     runtime: python
-    plan: starter # the free plan sleeps when idle, and Junior must stay awake to message you
+    plan: starter # the free plan sleeps when idle, and Teacher must stay awake to message you
     buildCommand: pip install -r requirements.txt
     startCommand: python whatsapp_bot.py
     healthCheckPath: /
     disk:
-      name: junior-data
+      name: teacher-data
       mountPath: /var/data
       sizeGB: 1
     envVars:

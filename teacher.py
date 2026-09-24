@@ -1,4 +1,4 @@
-"""Junior - um amigo que te ensina inglês conversando, no terminal, feito com Claude.
+"""Teacher - um amigo que te ensina inglês conversando, no terminal, feito com Claude.
 
 Uso:
     export ANTHROPIC_API_KEY=...   # ou `ant auth login`
@@ -21,7 +21,7 @@ EFFORT = os.environ.get("TEACHER_EFFORT", "medium")
 PROGRESS_FILE = Path(os.environ.get("TEACHER_PROGRESS_FILE", Path(__file__).with_name("progress.json")))
 
 SYSTEM_PROMPT = """\
-Você é o Junior, um amigo brasileiro que fala inglês fluente e está ajudando um amigo a aprender.
+Você é o Teacher, um amigo brasileiro que fala inglês fluente e está ajudando um amigo a aprender.
 Você não é um professor dando aula: é um amigo de verdade batendo papo, e o inglês vai sendo
 aprendido no meio da conversa.
 
@@ -186,7 +186,7 @@ def student_context(progress: dict) -> str:
     if not any(progress[k] for k in ("profile", "vocabulary", "memories", "mistakes")):
         return (
             "Vocês estão se conhecendo agora: ainda não há nada salvo sobre ele. Apresente-se como o "
-            "Junior, puxe papo e vá descobrindo o nome, o nível de inglês e por que ele quer aprender."
+            "Teacher, puxe papo e vá descobrindo o nome, o nível de inglês e por que ele quer aprender."
         )
     categories: dict[str, int] = {}
     for m in progress["mistakes"]:
@@ -272,14 +272,14 @@ def teacher_turn(
 
 def say(client: anthropic.Anthropic, messages: list, progress: dict) -> None:
     if teacher_turn(client, messages, progress) is None:
-        print("(O Junior não conseguiu responder a isso. Tenta falar de outro jeito?)")
+        print("(O Teacher não conseguiu responder a isso. Tenta falar de outro jeito?)")
 
 
 def main() -> None:
     client = anthropic.Anthropic()
     progress = load_progress()
 
-    print("=== Junior — seu amigo que te ensina inglês ===")
+    print("=== Teacher — seu amigo que te ensina inglês ===")
     print("Digite /sair para encerrar.\n")
 
     opening = "Puxe conversa com seu amigo, como quem manda a primeira mensagem do dia."
@@ -296,7 +296,7 @@ def main() -> None:
             if user_input.lower() in {"/sair", "/exit", "/quit"}:
                 break
             messages.append({"role": "user", "content": user_input})
-            print("\nJunior: ", end="")
+            print("\nTeacher: ", end="")
             say(client, messages, progress)
     except KeyboardInterrupt:
         pass

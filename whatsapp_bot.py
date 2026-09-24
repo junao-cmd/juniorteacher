@@ -1,6 +1,6 @@
-"""Junior no WhatsApp: um amigo que te ensina inglês conversando.
+"""Teacher no WhatsApp: um amigo que te ensina inglês conversando.
 
-Servidor que recebe suas mensagens pelo WhatsApp (Meta Cloud API), responde como o Junior e, nos
+Servidor que recebe suas mensagens pelo WhatsApp (Meta Cloud API), responde como o Teacher e, nos
 horários configurados, puxa conversa com você por conta própria.
 
 Uso:
@@ -30,9 +30,9 @@ WHATSAPP_TOKEN = os.environ["WHATSAPP_TOKEN"]
 PHONE_NUMBER_ID = os.environ["WHATSAPP_PHONE_NUMBER_ID"]
 VERIFY_TOKEN = os.environ["WHATSAPP_VERIFY_TOKEN"]
 APP_SECRET = os.environ.get("WHATSAPP_APP_SECRET", "")
-# Only these numbers talk to Junior (digits only, with country code: 5511999999999).
+# Only these numbers talk to Teacher (digits only, with country code: 5511999999999).
 STUDENT_PHONES = {p.strip().lstrip("+") for p in os.environ["STUDENT_PHONE"].split(",") if p.strip()}
-# Times of day when Junior starts a conversation on his own ("" disables it).
+# Times of day when Teacher starts a conversation on his own ("" disables it).
 CHECKIN_TIMES = sorted(t.strip() for t in os.environ.get("CHECKIN_TIMES", "09:00,12:30,19:30").split(",") if t.strip())
 # Don't interrupt: skip a check-in if the student wrote within this many minutes.
 QUIET_MINUTES = int(os.environ.get("QUIET_MINUTES", "120"))
@@ -82,7 +82,7 @@ def load_chat(phone: str) -> dict:
     path = student_dir(phone) / "chat.json"
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
-    return {"history": [], "last_student_message_at": None, "last_junior_message_at": None,
+    return {"history": [], "last_student_message_at": None, "last_teacher_message_at": None,
             "last_checkin_slot": None, "template_pending": False}
 
 
@@ -141,10 +141,10 @@ def mark_read(message_id: str) -> None:
         pass
 
 
-# --- Junior --------------------------------------------------------------------------------
+# --- Teacher --------------------------------------------------------------------------------
 
-def ask_junior(phone: str, chat: dict, student_text: str) -> str:
-    """Send one student message (or automatic instruction) to Junior and return the reply."""
+def ask_teacher(phone: str, chat: dict, student_text: str) -> str:
+    """Send one student message (or automatic instruction) to Teacher and return the reply."""
     progress_path = student_dir(phone) / "progress.json"
     progress = teacher.load_progress(progress_path)
     # The saved-progress summary rides on the newest message, so the older history stays a
@@ -161,7 +161,7 @@ def ask_junior(phone: str, chat: dict, student_text: str) -> str:
         return "Opa, essa eu não consigo responder 😅 Bora falar de outra coisa?"
 
     chat["history"] += [{"role": "user", "content": student_text}, {"role": "assistant", "content": reply}]
-    chat["last_junior_message_at"] = datetime.now(TIMEZONE).isoformat()
+    chat["last_teacher_message_at"] = datetime.now(TIMEZONE).isoformat()
     return reply
 
 
@@ -182,7 +182,7 @@ def handle_student_message(phone: str, message: dict) -> None:
             chat["template_pending"] = False
 
         try:
-            reply = ask_junior(phone, chat, text)
+            reply = ask_teacher(phone, chat, text)
         except anthropic.APIError:
             app.logger.exception("Anthropic API error")
             reply = "Eita, deu um probleminha aqui do meu lado 😅 Me manda de novo daqui a pouco?"
@@ -205,11 +205,11 @@ def send_checkin(phone: str, slot: str) -> None:
         save_chat(phone, chat)
 
         student_gap = since(chat["last_student_message_at"])
-        junior_gap = since(chat["last_junior_message_at"])
+        teacher_gap = since(chat["last_teacher_message_at"])
         if student_gap is not None and student_gap < timedelta(minutes=QUIET_MINUTES):
             return  # you're already chatting; don't interrupt
-        unanswered = junior_gap is not None and (student_gap is None or junior_gap < student_gap)
-        if unanswered and junior_gap < timedelta(hours=12):
+        unanswered = teacher_gap is not None and (student_gap is None or teacher_gap < student_gap)
+        if unanswered and teacher_gap < timedelta(hours=12):
             return  # he already sent something you haven't answered; don't double-text
 
         if not window_open(chat):
@@ -217,12 +217,12 @@ def send_checkin(phone: str, slot: str) -> None:
             # once per silence, and pick up the conversation when you answer.
             if not chat["template_pending"]:
                 chat["template_pending"] = True
-                chat["last_junior_message_at"] = datetime.now(TIMEZONE).isoformat()
+                chat["last_teacher_message_at"] = datetime.now(TIMEZONE).isoformat()
                 save_chat(phone, chat)
                 send_template(phone)
             return
 
-        reply = ask_junior(phone, chat, CHECKIN_PROMPT.format(moment=moment_of_day(datetime.now(TIMEZONE))))
+        reply = ask_teacher(phone, chat, CHECKIN_PROMPT.format(moment=moment_of_day(datetime.now(TIMEZONE))))
         save_chat(phone, chat)
         send_text(phone, reply)
 
@@ -273,14 +273,14 @@ def receive():
                 if phone not in STUDENT_PHONES or message["id"] in seen_message_ids:
                     continue
                 seen_message_ids.add(message["id"])
-                # Answer Meta right away; Junior replies in the background.
+                # Answer Meta right away; Teacher replies in the background.
                 threading.Thread(target=handle_student_message, args=(phone, message), daemon=True).start()
     return "ok"
 
 
 @app.get("/")
 def health():
-    return "Junior is running"
+    return "Teacher is running"
 
 
 if __name__ == "__main__":
