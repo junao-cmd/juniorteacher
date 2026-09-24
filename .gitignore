@@ -1,3 +1,5 @@
 progress.json
+data/
 __pycache__/
 .venv/
+.env

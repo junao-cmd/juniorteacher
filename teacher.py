@@ -107,14 +107,14 @@ TOOLS = [
 ]
 
 
-def load_progress() -> dict:
-    if PROGRESS_FILE.exists():
-        return json.loads(PROGRESS_FILE.read_text(encoding="utf-8"))
+def load_progress(path: Path = PROGRESS_FILE) -> dict:
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
     return {"profile": {}, "vocabulary": [], "mistakes": [], "sessions": 0}
 
 
-def save_progress(progress: dict) -> None:
-    PROGRESS_FILE.write_text(json.dumps(progress, ensure_ascii=False, indent=2), encoding="utf-8")
+def save_progress(progress: dict, path: Path = PROGRESS_FILE) -> None:
+    path.write_text(json.dumps(progress, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 def validate(tool: dict, args: object) -> str | None:
@@ -131,7 +131,7 @@ def validate(tool: dict, args: object) -> str | None:
     return None
 
 
-def run_tool(name: str, args: dict, progress: dict) -> str:
+def run_tool(name: str, args: dict, progress: dict, save=save_progress) -> str:
     today = date.today().isoformat()
     if name == "update_student_profile":
         progress["profile"].update(args)
@@ -147,7 +147,7 @@ def run_tool(name: str, args: dict, progress: dict) -> str:
         result = "erro registrado"
     else:
         raise ValueError(f"unknown tool {name}")
-    save_progress(progress)
+    save(progress)
     return result
 
 
@@ -170,9 +170,23 @@ def student_context(progress: dict) -> str:
     ])
 
 
-def teacher_turn(client: anthropic.Anthropic, messages: list, progress: dict) -> None:
-    """Run one teacher turn, executing tool calls until the teacher is done talking."""
+def print_text(text: str) -> None:
+    print(text, end="", flush=True)
+
+
+def teacher_turn(
+    client: anthropic.Anthropic,
+    messages: list,
+    progress: dict,
+    on_text=print_text,
+    save=save_progress,
+) -> str | None:
+    """Run one teacher turn, executing tool calls until the teacher is done talking.
+
+    Returns everything the teacher said this turn, or None if the request was declined.
+    """
     tools_by_name = {t["name"]: t for t in TOOLS}
+    said = []
     while True:
         try:
             with client.messages.stream(
@@ -190,24 +204,24 @@ def teacher_turn(client: anthropic.Anthropic, messages: list, progress: dict) ->
                 extra_body={"fallbacks": "default"},
             ) as stream:
                 for text in stream.text_stream:
-                    print(text, end="", flush=True)
+                    on_text(text)
                 response = stream.get_final_message()
         except ValueError:
             # A tool input arrived as unparseable JSON; drop the partial turn and ask again.
             messages.append({"role": "user", "content": "(sistema: sua última chamada de ferramenta veio malformada; tente de novo)"})
             continue
-        print()
+        on_text("\n")
 
         if response.stop_reason == "refusal":
-            print("(O professor não pôde responder a isso. Tente reformular.)")
             if isinstance(messages[-1]["content"], str):
                 messages.pop()  # drop the student message that was declined
-            return
+            return None
 
         messages.append({"role": "assistant", "content": response.content})
+        said.extend(b.text for b in response.content if b.type == "text" and b.text.strip())
         tool_uses = [b for b in response.content if b.type == "tool_use"]
         if not tool_uses:
-            return
+            return "\n\n".join(said)
 
         results = []
         for block in tool_uses:
@@ -218,8 +232,13 @@ def teacher_turn(client: anthropic.Anthropic, messages: list, progress: dict) ->
             if error:
                 results.append({"type": "tool_result", "tool_use_id": block.id, "content": error, "is_error": True})
             else:
-                results.append({"type": "tool_result", "tool_use_id": block.id, "content": run_tool(block.name, block.input, progress)})
+                results.append({"type": "tool_result", "tool_use_id": block.id, "content": run_tool(block.name, block.input, progress, save)})
         messages.append({"role": "user", "content": results})
+
+
+def say(client: anthropic.Anthropic, messages: list, progress: dict) -> None:
+    if teacher_turn(client, messages, progress) is None:
+        print("(O professor não pôde responder a isso. Tente reformular.)")
 
 
 def main() -> None:
@@ -231,7 +250,7 @@ def main() -> None:
 
     messages = [{"role": "user", "content": f"[Contexto do sistema]\n{student_context(progress)}"}]
     try:
-        teacher_turn(client, messages, progress)
+        say(client, messages, progress)
         while True:
             try:
                 user_input = input("\nVocê: ").strip()
@@ -243,7 +262,7 @@ def main() -> None:
                 break
             messages.append({"role": "user", "content": user_input})
             print("\nTeacher: ", end="")
-            teacher_turn(client, messages, progress)
+            say(client, messages, progress)
     except KeyboardInterrupt:
         pass
     except anthropic.AuthenticationError:
